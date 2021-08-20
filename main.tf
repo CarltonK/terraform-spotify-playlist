@@ -17,16 +17,16 @@ resource "spotify_playlist" "playlist" {
   public      = true
 
   tracks = flatten([
-    data.spotify_search_track.drake.tracks[*].id,
-    data.spotify_track.nonstop.id
+    data.spotify_track.nonstop.id,
+    data.spotify_search_track.drake.tracks[*].id
   ])
 }
 
 # Search by Artist
 data "spotify_search_track" "drake" {
   artist = "Drake"
-  limit = 15
-  year = "2020"
+  limit  = 4
+  year   = "2020"
 }
 
 # Search by ID
