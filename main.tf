@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     spotify = {
-      version = "~> 0.1.5"
+      version = "0.2.6"
       source  = "conradludgate/spotify"
     }
   }
@@ -17,11 +17,17 @@ resource "spotify_playlist" "playlist" {
   public      = true
 
   tracks = flatten([
-    spotify_search_track.by_artist.tracks[*].id,
+    data.spotify_search_track.drake.tracks[*].id,
+    data.spotify_track.nonstop.id
   ])
 }
 
-data "spotify_search_track" "by_artist" {
-  artists = ["Ariana Grande"]
-  limit = 10
+data "spotify_search_track" "drake" {
+  artist = "Drake"
+  limit = 15
+  year = "2020"
+}
+
+data "spotify_track" "nonstop" {
+  url = "https://open.spotify.com/track/0TlLq3lA83rQOYtrqBqSct?si=a0e0a80fdc904105"
 }
