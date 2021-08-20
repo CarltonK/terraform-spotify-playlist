@@ -22,12 +22,14 @@ resource "spotify_playlist" "playlist" {
   ])
 }
 
+# Search by Artist
 data "spotify_search_track" "drake" {
   artist = "Drake"
   limit = 15
   year = "2020"
 }
 
+# Search by ID
 data "spotify_track" "nonstop" {
   url = "https://open.spotify.com/track/0TlLq3lA83rQOYtrqBqSct?si=a0e0a80fdc904105"
 }
