@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-variable "spotify_api_key" {
-  type = string
-}
-
 provider "spotify" {
   api_key = var.spotify_api_key
 }
@@ -20,19 +16,12 @@ resource "spotify_playlist" "playlist" {
   description = "This playlist was created by Terraform"
   public      = true
 
-  tracks = [
-    data.spotify_search_track.by_artist.tracks[0].id,
-    data.spotify_search_track.by_artist.tracks[1].id,
-    data.spotify_search_track.by_artist.tracks[2].id,
-  ]
+  tracks = flatten([
+    spotify_search_track.by_artist.tracks[*].id,
+  ])
 }
 
 data "spotify_search_track" "by_artist" {
-  artists = ["Drake"]
-  #  album = "Jolene"
-  #  name  = "Early Morning Breeze"
-}
-
-output "tracks" {
-  value = data.spotify_search_track.by_artist.tracks
+  artists = ["Ariana Grande"]
+  limit = 10
 }
